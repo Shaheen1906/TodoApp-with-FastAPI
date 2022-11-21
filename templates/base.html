@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Todo App</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    </head>
+    <body>
+        <div style="margin-top: 50px;" class="ui container">
+            <h1 class="ui center aligned header">ToDo App</h1>
+
+            <form class="ui form" action="/add" method="post">
+                <div class="field">
+                    <label>Todo Title</label>
+                    <input type="text" name="title" placeholder="Enter ToDo task here">
+                    <br>
+                </div>
+                <button class="ui blue button" type="submit">Add</button>
+            </form>
+
+            <hr>
+        
+            <div class="page-header">
+                <p> <h2 style="color: black"> List of All  Tasks <h2></p>
+                </div>
+            {% for todo in todo_list %} 
+            <div class="ui segment">
+                <p class="ui big header">{{ todo.id }} | {{ todo.title }}</p>
+
+                {% if todo.complete == False %}
+                <span class="ui gray label">Not Complete</span>
+                {% else %}
+                <span class="ui green label">Completed</span>
+                {% endif %}
+
+                <a class="ui blue button" href="/update/{{ todo.id }}">Update</a>
+                <a class="ui red button" href="/delete/{{ todo.id }}">Delete</a>
+
+            </div>
+            {% endfor %}
+
+        </div>
+        <br>
+        <div style="margin-top: 50px;" class="ui container">
+            <div class="page-header">
+            <p> <h2 style="color: red"> List of All Pending Tasks <h2></p>
+            </div>
+            <div class="ui segment">
+           {% for todo in todo_list %} 
+           
+                {% if todo.complete == False %}
+                <p class="ui big header">{{ todo.id }} | {{ todo.title }}</p>
+                <span class="ui gray label">Not Complete</span>
+                {% endif %}
+            
+            {% endfor %}
+        </div>
+        </div>
+
+
+<div style="margin-top: 50px;" class="ui container">
+    <div class="page-header">
+    <p><h2 style="color: green">List of all Completed Tasks <h2></p>
+    </div>
+    <div class="ui segment">
+            {% for todo in todo_list %}  
+              
+                {% if todo.complete == True %}
+                <p class="ui big header">{{ todo.id }} | {{ todo.title }}</p>
+                <span class="ui green label">Completed</span>
+                {% endif %}
+            
+            {% endfor %}
+    </div>
+
+        </div>
+
+    </body>
+
+</html>
